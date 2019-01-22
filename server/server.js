@@ -38,16 +38,6 @@ app.get('/find/:latlng/:radius/:keyword', (req, res) => {
   })
 })
 
-app.get('/test', (req, res) => {
-
-})
-
-
-
-const lat = '59.3139445'
-const lon = '18.0872463'
-const sliderValue = '1500'
-
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`Server running on port ${port}`))
 
