@@ -1,8 +1,9 @@
-# Boilerplate for hotreloading and es6 in express
+# Restaurandom-web api
   
 
 ## Includes
 
+- Google places API
 - Webpack 3
 - Babel
 - ESLint
@@ -10,6 +11,7 @@
 
 ## How to use
 
+- Create 'apiKey.js' file and your keys
 - npm install
 - npm run dev
 - npm run build
