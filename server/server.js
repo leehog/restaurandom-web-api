@@ -20,11 +20,12 @@ const googleMapsClient = require('@google/maps').createClient({
 
 // Find restaurant in area and randomly choose one
 app.post('/find/:latlng', (req, res) => {
-  console.log(req)
+  const keyword = req.body.keywords[Math.floor(Math.random() * req.body.keywords.length)]
+  
   googleMapsClient.placesNearby({
     location: req.params.latlng, 
     radius: parseInt(req.body.radius), 
-    keyword: req.body.keyword, 
+    keyword,
     type: 'restaurant'
   })
   .asPromise()
