@@ -35,7 +35,9 @@ app.post('/find/:latlng', (req, res) => {
       details
     })
   }).catch(e => {
-    console.log(e)
+    res.send({
+      e
+    })
   })
 })
 
@@ -45,7 +47,7 @@ const getDetailedInfo = async (id) => {
   }).asPromise().then(res => {
     return res.json
   }).catch((e) => {
-    console.log(e)
+    return e
   })
 }
 
