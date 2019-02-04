@@ -43,7 +43,7 @@ const getDetailedInfo = async (id) => {
   return googleMapsClient.place({
     placeid: id
   }).asPromise().then(res => {
-    return res
+    return res.json
   }).catch((e) => {
     console.log(e)
   })
