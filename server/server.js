@@ -1,8 +1,11 @@
 import express from 'express'
 import { apiKey, randomOrg } from '../apiKey'
 import { placesNearby } from '@google/maps'
+import bodyParser from 'body-parser'
 
 const app = express()
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
@@ -16,12 +19,12 @@ const googleMapsClient = require('@google/maps').createClient({
 });
 
 // Find restaurant in area and randomly choose one
-app.get('/find/:latlng/:radius/:keyword', (req, res) => {
+app.post('/find/:latlng', (req, res) => {
   console.log(req)
   googleMapsClient.placesNearby({
     location: req.params.latlng, 
-    radius: parseInt(req.params.radius), 
-    keyword: req.params.keyword, 
+    radius: parseInt(req.body.radius), 
+    keyword: req.body.keyword, 
     type: 'restaurant'
   })
   .asPromise()
