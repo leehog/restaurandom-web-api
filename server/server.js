@@ -52,7 +52,7 @@ const getDetailedInfo = async (id) => {
 }
 
 app.post('/directions', (req, res) => {
-  console.log(req)
+  // Mode optional, valid values:'driving', 'walking', 'bicycling', 'transit'
   googleMapsClient.directions({
     origin: req.body.origin,
     destination: req.body.destination,
