@@ -1,7 +1,8 @@
 import express from 'express'
 import { apiKey, randomOrg } from '../apiKey'
 import bodyParser from 'body-parser'
-import { resolve } from 'path';
+import { resolve } from 'path'
+import uuid from 'uuid/v4'
 
 const app = express()
 app.use(bodyParser.json())
@@ -57,14 +58,13 @@ app.post('/directions', (req, res) => {
     origin: req.body.origin,
     destination: req.body.destination,
     mode: req.body.mode ? req.body.mode : 'walking'
-  }).asPromise().then(async (response) => {
+  }).asPromise().then(async (directions) => {
+    const o = Object.assign(directions.json, {rr_id: uuid()})
     res.send({
-      response
+      o
     })
   }).catch(e => {
-    res.send({
-      e
-    })
+    console.log(e)
   })
 })
 
