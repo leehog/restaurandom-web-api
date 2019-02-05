@@ -55,7 +55,8 @@ app.post('/directions', (req, res) => {
   console.log(req)
   googleMapsClient.directions({
     origin: req.body.origin,
-    destination: req.body.destination
+    destination: req.body.destination,
+    mode: req.body.mode ? req.body.mode : 'walking'
   }).asPromise().then(async (response) => {
     res.send({
       response
