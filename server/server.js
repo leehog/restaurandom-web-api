@@ -51,6 +51,22 @@ const getDetailedInfo = async (id) => {
   })
 }
 
+app.post('/directions', (req, res) => {
+  console.log(req)
+  googleMapsClient.directions({
+    origin: req.body.origin,
+    destination: req.body.destination
+  }).asPromise().then(async (response) => {
+    res.send({
+      response
+    })
+  }).catch(e => {
+    res.send({
+      e
+    })
+  })
+})
+
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`Server running on port ${port}`))
 
