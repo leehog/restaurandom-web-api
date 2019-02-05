@@ -59,7 +59,7 @@ app.post('/directions', (req, res) => {
     destination: req.body.destination,
     mode: req.body.mode ? req.body.mode : 'walking'
   }).asPromise().then(async (directions) => {
-    const o = Object.assign(directions.json, {rr_id: uuid()})
+    const o = Object.assign(directions.json, {rrId: uuid()})
     res.send({
       o
     })
