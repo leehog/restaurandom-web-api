@@ -52,21 +52,22 @@ const getDetailedInfo = async (id) => {
   })
 }
 
-app.post('/directions', (req, res) => {
-  // Mode optional, valid values:'driving', 'walking', 'bicycling', 'transit'
-  googleMapsClient.directions({
-    origin: req.body.origin,
-    destination: req.body.destination,
-    mode: req.body.mode ? req.body.mode : 'walking'
-  }).asPromise().then(async (directions) => {
-    const json = Object.assign(directions.json, {rrId: uuid()})
-    res.send({
-      json
-    })
-  }).catch(e => {
-    console.log(e)
-  })
-})
+// Deprecated
+// app.post('/directions', (req, res) => {
+//   // Mode optional, valid values:'driving', 'walking', 'bicycling', 'transit'
+//   googleMapsClient.directions({
+//     origin: req.body.origin,
+//     destination: req.body.destination,
+//     mode: req.body.mode ? req.body.mode : 'walking'
+//   }).asPromise().then(async (directions) => {
+//     const json = Object.assign(directions.json, {rrId: uuid()})
+//     res.send({
+//       json
+//     })
+//   }).catch(e => {
+//     console.log(e)
+//   })
+// })
 
 const port = process.env.PORT || 5000
 app.listen(port, () => console.log(`Server running on port ${port}`))
