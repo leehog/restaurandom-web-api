@@ -3,6 +3,7 @@ import { apiKey, randomOrg } from '../apiKey'
 import bodyParser from 'body-parser'
 import { resolve } from 'path'
 import uuid from 'uuid/v4'
+import { computeDistanceBetween } from 'spherical-geometry-js'
 
 const app = express()
 app.use(bodyParser.json())
@@ -20,17 +21,28 @@ const googleMapsClient = require('@google/maps').createClient({
 });
 
 // Find restaurant in area and randomly choose one
-app.post('/find/:latlng', (req, res) => {
+app.post('/find', (req, res) => {
   const keyword = req.body.keywords[Math.floor(Math.random() * req.body.keywords.length)]
   googleMapsClient.placesNearby({
-    location: req.params.latlng,
+    location: `${req.body.location.lat},${req.body.location.lng}`,
     radius: req.body.radius,
     keyword,
     type: 'restaurant'
   }).asPromise().then(async (response) => {
     const a = response.json.results
-    // Add random.org api instead of math
-    const result = a[Math.floor(Math.random() * a.length)]
+    
+    const locationFrom = {
+      lat: () => req.body.location.lat,
+      lng: () => req.body.location.lng
+    }
+
+    const locationTo = ({lat, lng}) => ({
+      lat: () => lat,
+      lng: () => lng
+    })
+    const filteredRestaurants = a.filter(restaurant => computeDistanceBetween(locationFrom, locationTo(restaurant.geometry.location)) < req.body.radius)
+    const result = filteredRestaurants[Math.floor(Math.random() * filteredRestaurants.length)]
+
     const details = await getDetailedInfo(result.place_id)
     res.send({
       details
