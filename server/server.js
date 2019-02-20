@@ -48,7 +48,7 @@ app.post('/find', (req, res) => {
       details
     })
   }).catch(e => {
-    if (!Object.keys(e)) {
+    if (Object.keys(e).length === 0) {
       res.status(1).send('Nothing found')
     } else {
       res.send({
