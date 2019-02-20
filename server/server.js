@@ -30,7 +30,7 @@ app.post('/find', (req, res) => {
     type: 'restaurant'
   }).asPromise().then(async (response) => {
     const a = response.json.results
-
+    console.log(a)
     let arr = []
     a.map(res => {
       arr.push(res.name)
