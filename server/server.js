@@ -30,13 +30,13 @@ app.post('/find', (req, res) => {
     type: 'restaurant'
   }).asPromise().then(async (response) => {
     const a = response.json.results
-    
+
     const locationFrom = {
       lat: () => req.body.location.lat,
       lng: () => req.body.location.lng
     }
 
-    const locationTo = ({lat, lng}) => ({
+    const locationTo = ({ lat, lng }) => ({
       lat: () => lat,
       lng: () => lng
     })
@@ -48,9 +48,13 @@ app.post('/find', (req, res) => {
       details
     })
   }).catch(e => {
-    res.send({
-      e
-    })
+    if (!Object.keys(e)) {
+      res.status(1).send('Nothing found')
+    } else {
+      res.send({
+        e
+      })
+    }
   })
 })
 
