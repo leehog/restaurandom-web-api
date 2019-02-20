@@ -49,7 +49,10 @@ app.post('/find', (req, res) => {
     })
   }).catch(e => {
     if (Object.keys(e).length === 0) {
-      res.status(1).send('Nothing found')
+      res.send({
+        status_code: 1,
+        msg: 'Nothing found'
+      })
     } else {
       res.send({
         e
