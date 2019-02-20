@@ -31,7 +31,11 @@ app.post('/find', (req, res) => {
   }).asPromise().then(async (response) => {
     const a = response.json.results
 
-    console.log(a)
+    let arr = []
+    a.map(res => {
+      arr.push(res.name)
+    })
+    console.log(arr)
     const locationFrom = {
       lat: () => req.body.location.lat,
       lng: () => req.body.location.lng
