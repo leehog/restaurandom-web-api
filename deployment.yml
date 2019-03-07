@@ -1,0 +1,19 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: restaurandom
+  labels:
+    app: restaurandom-1541533424949
+spec:
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: restaurandom-1541533424949
+    spec:
+      containers:
+        - name: restaurandom-api
+          image: gcr.io/restaurandom-1541533424949/restaurandom-api:1.0
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 5000

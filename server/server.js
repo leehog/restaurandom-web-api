@@ -20,6 +20,10 @@ const googleMapsClient = require('@google/maps').createClient({
   Promise: Promise
 });
 
+app.get('/', (req, res) => {
+  res.status(200).json('welcome to root');
+});
+
 // Find restaurant in area and randomly choose one
 app.post('/find', (req, res) => {
   const keyword = req.body.keywords[Math.floor(Math.random() * req.body.keywords.length)]
